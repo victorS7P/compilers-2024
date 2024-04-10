@@ -5,7 +5,7 @@ CFLAGS = -Wno-everything -pthread -lm
 PROGRAM_NAME = parser
 
 build:
-	$(CC) $(CFLAGS) -o ./$(PROGRAM_NAME) ./main.c -e_$(PROGRAM_NAME)_main
+	$(CC) $(CFLAGS) -o ./$(PROGRAM_NAME) ./main.c
 
 run:
 	clear

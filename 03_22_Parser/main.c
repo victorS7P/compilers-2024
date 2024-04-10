@@ -83,7 +83,7 @@ void createAssemblyFromTokens(TToken* tokens, char* outputFilePath) {
 	}
 }
 
-int parser_main (int argc, char* argv[]) {
+int main (int argc, char* argv[]) {
   TToken* tokens = readTokensFromFile(argv[1]);
 
   createAssemblyFromTokens(tokens, "./out/program.txt");

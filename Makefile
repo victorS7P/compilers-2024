@@ -1,27 +1,26 @@
 NeanderPath = 02_23_Neander
 AssemblerPath = 03_09_Assembler
-LexerPath = 03_15_Lexer
+ParserPath = 03_22_Parser
 
 Build = && make build -s
 Run 	= && make run		-s
 Clean = && make clean -s
 
-FinishMessage = "Output file saved at program's folder.\nPress any key to continue"
+FinishMessage = "Output file saved at program's folder. Press any key to continue"
 
 build:
 	@echo "Building Neander Simulator" \
 		&& cd $(NeanderPath) $(Build)
-		
 
 	@echo "Building Neander Assembler" \
 		&& cd $(AssemblerPath) $(Build)
 
-	@echo "Building Language Lexer" \
-		&& cd $(LexerPath) $(Build)
+	@echo "Building Language Parser" \
+		&& cd $(ParserPath) $(Build)
 
 run:
-	@echo "Running Language Lexer" \
-		&& cd $(LexerPath) $(Run) \
+	@echo "Running Language Parser" \
+		&& cd $(ParserPath) $(Run) \
 		&& echo $(FinishMessage) && read
 
 	@echo "Running Neander Assembler" \
@@ -35,5 +34,9 @@ run:
 clean:
 	@cd $(NeanderPath) $(Clean)
 	@cd $(AssemblerPath) $(Clean)
-	@cd $(LexerPath) $(Clean)
+	@cd $(ParserPath) $(Clean)
 	@echo "All Clean!"
+
+test:
+	clang ./main.c -o main
+	./main

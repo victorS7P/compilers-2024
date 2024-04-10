@@ -1,4 +1,4 @@
-programa ?= ./data/program.txt
+INPUT ?= ../03_22_Parser/out/program.txt
 
 CC = clang
 CFLAGS = -Wno-everything -pthread -lm
@@ -9,7 +9,7 @@ build:
 
 run:
 	clear
-	./$(PROGRAM_NAME) $(programa)
+	./$(PROGRAM_NAME) $(INPUT)
 
 clean:
 	rm -rf ./$(PROGRAM_NAME)

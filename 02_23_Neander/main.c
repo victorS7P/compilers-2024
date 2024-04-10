@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define DEBUG 1
 #define MEMORY_SIZE 256
@@ -275,7 +276,7 @@ void executeProgram(TProgram* program) {
 int main(int argc, char *argv[]) {
 	TProgram program = createProgram(argv[1]);
 
-	// debugMemory(&program);
+	debugMemory(&program);
 	executeProgram(&program);
 
   return 0;
