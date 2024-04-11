@@ -8,6 +8,12 @@ Clean = && make clean -s
 
 FinishMessage = "Output file saved at program's folder. Press any key to continue"
 
+CC = clang
+CFLAGS = -Wno-everything -pthread -lm
+PROGRAM_NAME = parser
+
+SRC = ./src
+
 build:
 	@echo "Building Neander Simulator" \
 		&& cd $(NeanderPath) $(Build)
@@ -37,6 +43,13 @@ clean:
 	@cd $(ParserPath) $(Clean)
 	@echo "All Clean!"
 
-test:
-	clang ./main.c -o main
-	./main
+teste:
+	$(CC) $(CFLAGS) -o ./vm_test ./tests/vm.test.c
+
+	clear
+
+	@printf "VM TESTS\n"
+	@./vm_test
+	@printf "\n"
+
+	@rm -rf ./*_test

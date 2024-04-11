@@ -1,0 +1,9 @@
+# Replit
+./.ccls-cache
+./.replit
+./replit.nix
+
+# Build
+./build
+./debug
+./out
