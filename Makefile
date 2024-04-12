@@ -1,7 +1,3 @@
-NeanderPath = 02_23_Neander
-AssemblerPath = 03_09_Assembler
-ParserPath = 03_22_Parser
-
 Build = && make build -s
 Run 	= && make run		-s
 Clean = && make clean -s
@@ -13,6 +9,7 @@ CFLAGS = -Wno-everything -pthread -lm
 PROGRAM_NAME = parser
 
 SRC = ./src
+TEST_DONE_MESSAGE = "Tests done! Press any key to continue ..."
 
 build:
 	@echo "Building Neander Simulator" \
@@ -43,13 +40,16 @@ clean:
 	@cd $(ParserPath) $(Clean)
 	@echo "All Clean!"
 
-teste:
+test:
 	$(CC) $(CFLAGS) -o ./vm_test ./tests/vm.test.c
+	$(CC) $(CFLAGS) -o ./utils_test ./tests/utils.test.c
 
 	clear
 
-	@printf "VM TESTS\n"
-	@./vm_test
-	@printf "\n"
+	# @printf "UTILS TESTS\n\n" && ./utils_test
+	# @printf "\n" && echo $(TEST_DONE_MESSAGE) && read && clear
+
+	@printf "VM TESTS\n\n" && ./vm_test
+	@printf "\n" && echo $(TEST_DONE_MESSAGE) && read && clear
 
 	@rm -rf ./*_test

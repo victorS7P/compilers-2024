@@ -1,9 +1,6 @@
 #ifndef VM_T
 #define VM_T
 
-#include <stdarg.h>
-#include <stdio.h>
-
 #include "./__utils.test.c"
 #include "../src/vm/vm.c"
 
@@ -203,13 +200,13 @@ void skipNextMemorySlotTest() {
   printf("\n");
 }
 
-void incremenTNeanderVMCounterTest() {
-  printf("#incremenTNeanderVMCounter\n");
+void incrementProgramCounterTest() {
+  printf("#incrementProgramCounter\n");
   TNeanderVM vm = createNeanderVM();
 
   int value = randomNumber(0, 255);
   vm.programCounter = value;
-  incremenTNeanderVMCounter(&vm);
+  incrementProgramCounter(&vm);
   assert(vm.programCounter == (value + 1), "Should increment program counter");
 
   printf("\n");
@@ -227,14 +224,14 @@ void incrementInstructionsCounterTest() {
   printf("\n");
 }
 
-void jumpAndDecremenTNeanderVMCounterTest() {
-  printf("#jumpAndDecremenTNeanderVMCounter\n");
+void jumpAndDecrementProgramCounterTest() {
+  printf("#jumpAndDecrementProgramCounter\n");
   TNeanderVM vm = createNeanderVM();
 
   int newProgramCounter = randomNumber(0, 255);
   vm.programCounter = 0;
   vm.memory[1] = newProgramCounter;
-  jumpAndDecremenTNeanderVMCounter(&vm);
+  jumpAndDecrementProgramCounter(&vm);
 
   assert(
     vm.programCounter == (newProgramCounter - 1),
@@ -245,8 +242,54 @@ void jumpAndDecremenTNeanderVMCounterTest() {
   printf("\n");
 }
 
-int main(int argc, char const *argv[])
-{
+void setNeanderVMFromStringBufferTest() {
+  printf("#setNeanderVMFromStringBuffer\n");
+
+  TNeanderVM vm = createNeanderVM();
+  char* memoryString = malloc(0);
+
+  readFileContent("./tests/resources/vm_memory_input.txt", memoryString);
+  int result = setNeanderVMFromStringBuffer(&vm, memoryString);
+  free(memoryString);
+
+  assert(result == 0, "Should return a valid result");
+  assert(vm.memory[0]   ==  32, "Should properly set all memory values");
+  assert(vm.memory[10]  ==  16, "Should properly set all memory values");
+  assert(vm.memory[129] ==   4, "Should properly set all memory values");
+  assert(vm.memory[150] ==   0, "Should properly set all memory values");
+  assert(vm.memory[255] ==   0, "Should properly set all memory values");
+
+  TNeanderVM invalidVm = createNeanderVM();
+  char* invalidMemoryString = malloc(0);
+
+  readFileContent("./tests/resources/vm_memory_input_with_invalid_data.txt", invalidMemoryString);
+  int invalidResult = setNeanderVMFromStringBuffer(&invalidVm, invalidMemoryString);
+  free(invalidMemoryString);
+  assert(invalidResult == -1, "Should return an invalid result");
+
+  printf("\n");
+}
+
+void executeVMTest() {
+  printf("#executeVM\n");
+
+  TNeanderVM vm = createNeanderVM();
+  char* memoryString = malloc(0);
+
+  readFileContent("./tests/resources/vm_memory_input.txt", memoryString);
+  setNeanderVMFromStringBuffer(&vm, memoryString);
+  free(memoryString);
+
+  int result = executeVM(&vm);
+  assert(result == 0, "Should properly execute vm");
+  assert(vm.memory[130] == 7, "Should properly add values in memory and store the result");
+  assert(vm.memory[131] == 248, "Should properly jump, negate accumulator number and store it");
+  assert(vm.accumulator == 7, "Should properly negate-jump and negate accumulator number");
+
+  printf("\n");
+}
+
+int main(int argc, char const *argv[]) {
   createNeanderVMTest();
 
   updateFlagNTest();
@@ -262,9 +305,12 @@ int main(int argc, char const *argv[])
   nextAsAddressToValueTest();
 
   skipNextMemorySlotTest();
-  incremenTNeanderVMCounterTest();
+  incrementProgramCounterTest();
   incrementInstructionsCounterTest();
-  jumpAndDecremenTNeanderVMCounterTest();
+  jumpAndDecrementProgramCounterTest();
+
+  setNeanderVMFromStringBufferTest();
+  executeVMTest();
 
   return 0;
 }

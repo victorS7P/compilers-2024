@@ -1,9 +1,7 @@
-#ifndef UTILS_TEST
-#define UTILS_TEST
+#ifndef __UTILS_T
+#define __UTILS_T
 
-#include <time.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "../src/config/config.c"
 
 void assert(int assert, char* message, ...) {
   va_list args;

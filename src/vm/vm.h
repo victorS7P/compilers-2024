@@ -25,8 +25,8 @@ typedef struct NeanderVM {
 	int flagZ;
 } TNeanderVM;
 
-void debugNeanderVM(TNeanderVM *program);
-void debugNeanderMemory(TNeanderVM *program);
+void debugVm(TNeanderVM *program);
+void debugVmMemory(TNeanderVM *program);
 
 TNeanderVM createNeanderVM();
 int normalizeValue(int value);
@@ -43,8 +43,8 @@ int getNextMemoryValue(TNeanderVM* vm);
 int nextAsAddressToValue(TNeanderVM* vm);
 
 void skipNextMemorySlot(TNeanderVM* vm);
-void incremenTNeanderVMCounter(TNeanderVM* vm);
+void incrementProgramCounter(TNeanderVM* vm);
 void incrementInstructionsCounter(TNeanderVM* vm);
-void jumpAndDecremenTNeanderVMCounter(TNeanderVM* vm);
+void jumpAndDecrementProgramCounter(TNeanderVM* vm);
 
 #endif
