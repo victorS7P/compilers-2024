@@ -2,7 +2,7 @@
 #define VM_T
 
 #include "./__utils.test.c"
-#include "../src/vm/vm.c"
+#include "../src/modules/vm/vm.c"
 
 void createNeanderVMTest() {
   printf("#createNeanderVMTest\n");

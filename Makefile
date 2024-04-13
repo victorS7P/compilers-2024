@@ -41,15 +41,18 @@ clean:
 	@echo "All Clean!"
 
 test:
-	$(CC) $(CFLAGS) -o ./vm_test ./tests/vm.test.c
-	$(CC) $(CFLAGS) -o ./utils_test ./tests/utils.test.c
-
 	clear
 
-	# @printf "UTILS TESTS\n\n" && ./utils_test
-	# @printf "\n" && echo $(TEST_DONE_MESSAGE) && read && clear
+	@$(CC) $(CFLAGS) -o ./utils_test ./tests/utils.test.c
+	@printf "UTILS TESTS\n\n" && ./utils_test
+	@printf "\n" && echo $(TEST_DONE_MESSAGE) && read && clear
 
+	@$(CC) $(CFLAGS) -o ./vm_test ./tests/vm.test.c
 	@printf "VM TESTS\n\n" && ./vm_test
+	@printf "\n" && echo $(TEST_DONE_MESSAGE) && read && clear
+	
+	@$(CC) $(CFLAGS) -o ./assembler_test ./tests/assembler.test.c
+	@printf "ASSEMBLER TESTS\n\n" && ./assembler_test
 	@printf "\n" && echo $(TEST_DONE_MESSAGE) && read && clear
 
 	@rm -rf ./*_test

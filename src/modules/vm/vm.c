@@ -1,10 +1,8 @@
 #ifndef VM
 #define VM
 
-#include "../utils/utils.c"
-#include "../config/config.c"
-
 #include "./vm.h"
+#include "../../utils/utils.c"
 
 TNeanderVM createNeanderVM() {
 	TNeanderVM vm;
