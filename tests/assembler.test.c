@@ -119,7 +119,7 @@ void fetchMemoryFromBufferTest() {
 		memory[i] = 0;
   char* memoryString = malloc(0);
 
-  readFileContent("./tests/resources/assembler_input.txt", memoryString);
+  readFileContent("./tests/resources/assembler_input.txt", &memoryString);
   fetchMemoryFromBuffer(memory, memoryString);
 
   assert(memory[128] ==   5, "Should create data in memory");

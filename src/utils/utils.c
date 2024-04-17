@@ -36,7 +36,7 @@ void readFileContent(char* programFile, char** buffer) {
 		exit(1);
   }
 
-  fread (buffer, 1, length, filePtr);
+  fread ((*buffer), 1, length, filePtr);
 	fclose(filePtr);
 }
 
@@ -75,7 +75,7 @@ char validateNumberChar(char c) {
 
 int convertValueStrToNumber(char* valueStr) {
 	int value = 0;
-	sscanf(valueStr, "%d", &value);
+	sscanf(valueStr, "%03d", &value);
 
 	if (value < 0 || value > 255) {
 		printf("\nERROR!\nInvalid Memory Definition!\nError: %d is not a valid value.\n", value);

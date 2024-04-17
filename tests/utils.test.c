@@ -8,9 +8,10 @@ void readFileContentTest() {
   printf("#readFileContentTest\n");
 
   char* buffer = malloc(0);
-  readFileContent("./tests/resources/__test_string.txt", buffer);
+  readFileContent("./tests/resources/__test_string.txt", &buffer);
   assert(strcmp(buffer, "Hello World\n") == 0, "Should create string from file content");
 
+  free(buffer);
   printf("\n");
 }
 

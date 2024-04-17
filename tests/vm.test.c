@@ -248,7 +248,7 @@ void setNeanderVMFromStringBufferTest() {
   TNeanderVM vm = createNeanderVM();
   char* memoryString = malloc(0);
 
-  readFileContent("./tests/resources/vm_memory_input.txt", memoryString);
+  readFileContent("./tests/resources/vm_memory_input.txt", &memoryString);
   int result = setNeanderVMFromStringBuffer(&vm, memoryString);
   free(memoryString);
 
@@ -262,7 +262,7 @@ void setNeanderVMFromStringBufferTest() {
   TNeanderVM invalidVm = createNeanderVM();
   char* invalidMemoryString = malloc(0);
 
-  readFileContent("./tests/resources/vm_memory_input_with_invalid_data.txt", invalidMemoryString);
+  readFileContent("./tests/resources/vm_memory_input_with_invalid_data.txt", &invalidMemoryString);
   int invalidResult = setNeanderVMFromStringBuffer(&invalidVm, invalidMemoryString);
   free(invalidMemoryString);
   assert(invalidResult == -1, "Should return an invalid result");
@@ -276,7 +276,7 @@ void executeVMTest() {
   TNeanderVM vm = createNeanderVM();
   char* memoryString = malloc(0);
 
-  readFileContent("./tests/resources/vm_memory_input.txt", memoryString);
+  readFileContent("./tests/resources/vm_memory_input.txt", &memoryString);
   setNeanderVMFromStringBuffer(&vm, memoryString);
   free(memoryString);
 
