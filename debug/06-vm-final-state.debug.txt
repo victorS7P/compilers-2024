@@ -1,0 +1,6 @@
+Accumulator: 206
+vm Counter: 048
+Flag N: 1
+Flag Z: 0
+Access Count: 69
+Instructions: 27

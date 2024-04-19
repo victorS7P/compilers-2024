@@ -244,4 +244,21 @@ int executeVM(TNeanderVM* vm) {
 	return 0;
 }
 
+char* createBufferFromVmData(TNeanderVM *vm) {
+	char* vmBuffer = malloc(sizeof(char) * 1024);
+  int vmBufferLen = 0;
+
+	vmBufferLen += sprintf(vmBuffer+vmBufferLen, "Accumulator: %03d\n", vm->accumulator);
+	vmBufferLen += sprintf(vmBuffer+vmBufferLen, "vm Counter: %03d\n", vm->programCounter);
+
+	vmBufferLen += sprintf(vmBuffer+vmBufferLen, "Flag N: %d\n", vm->flagN);
+	vmBufferLen += sprintf(vmBuffer+vmBufferLen, "Flag Z: %d\n", vm->flagZ);
+
+	vmBufferLen += sprintf(vmBuffer+vmBufferLen, "Access Count: %d\n", vm->accessesCounter);
+	vmBufferLen += sprintf(vmBuffer+vmBufferLen, "Instructions: %d\n", vm->instructionsCounter);
+
+	vmBuffer = realloc(vmBuffer, sizeof(char) * vmBufferLen);
+	return vmBuffer;
+}
+
 #endif

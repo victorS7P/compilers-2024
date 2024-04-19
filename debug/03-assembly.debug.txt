@@ -1,0 +1,18 @@
+<BNF_EXPRESSION>
+|--<BNF_LITERAL_VALUE> (100)
+|--<BNF_OPERATOR> (-)
+|--<BNF_EXPRESSION>
+|  |--<BNF_LITERAL_VALUE> (10)
+|  |--<BNF_OPERATOR> (-)
+|  |--<BNF_EXPRESSION>
+|    |--<BNF_LITERAL_VALUE> (20)
+|    |--<BNF_OPERATOR> (-)
+|    |--<BNF_EXPRESSION>
+|      |--<BNF_LITERAL_VALUE> (30)
+|      |--<BNF_OPERATOR> (-)
+|      |--<BNF_EXPRESSION>
+|        |--<BNF_LITERAL_VALUE> (40)
+|        |--<BNF_OPERATOR> (-)
+|        |--<BNF_EXPRESSION>
+|          |--<BNF_LITERAL_VALUE> (50)
+|          |--<BNF_FILE_END> ((null))

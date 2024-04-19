@@ -188,4 +188,13 @@ char* saveMemoryToBuffer(int* memory) {
 	return buffer;
 }
 
+int* createMemoryFromAssemblyBuffer(char* buffer) {
+	int* memory = malloc(sizeof(int) * MEMORY_SIZE);
+	for (int i = 0; i < MEMORY_SIZE; i++)
+		memory[i] = 0;
+
+  fetchMemoryFromBuffer(memory, buffer);
+	return memory;
+}
+
 #endif

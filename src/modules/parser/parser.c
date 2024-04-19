@@ -188,4 +188,55 @@ char* createAssemblyFromData(TParserAssemblerData* assemblerData) {
 	return buffer;
 }
 
+int fetchParserDataFromTokens(TParserTree* parserTree, TParserAssemblerData* assemblerData, TLexerToken* tokens) {
+	int currentTokenIndex = 0;
+	return parseExpression(parserTree, tokens, &currentTokenIndex, assemblerData);
+}
+
+void fetchBufferWithParserTreeData(TParserTree* tree, int depth, char* buffer, int* bufferLen) {
+  if (depth > 0)
+  {
+    if (depth == 1)
+			(*bufferLen) += sprintf(buffer + (*bufferLen), "|--");
+
+    else
+    {
+      (*bufferLen) += sprintf(buffer + (*bufferLen), "|");
+
+      for (int i = 1; i < depth; i++)
+				(*bufferLen) += sprintf(buffer + (*bufferLen), "  ");
+
+      (*bufferLen) += sprintf(buffer + (*bufferLen), "|--");
+    }
+  }
+
+  if (tree->symbol)
+  {
+    (*bufferLen) += sprintf(buffer + (*bufferLen), "<%s>", ParserGrammarSymbolStr[tree->symbol]);
+
+    if (tree->isTerminal)
+      (*bufferLen) += sprintf(buffer + (*bufferLen), " (%s)\n", tree->token.value);
+    else
+      (*bufferLen) += sprintf(buffer + (*bufferLen), "\n");
+  }
+
+  if (tree->childrenLength)
+  {
+    depth++;
+
+    for (int i = 0; i < tree->childrenLength; i++)
+      fetchBufferWithParserTreeData(&(tree->childrenTree[i]), depth, buffer, bufferLen);
+  }
+}
+
+char* createBufferWithParserTreeData(TParserTree* parserTree) {
+	char* parserTreeBuffer = malloc(sizeof(char) * 1024);
+  int parserTreeBufferLen = 0;
+
+	fetchBufferWithParserTreeData(parserTree, 0, parserTreeBuffer, &parserTreeBufferLen);
+	parserTreeBuffer = realloc(parserTreeBuffer, sizeof(char) * parserTreeBufferLen);
+
+	return parserTreeBuffer;
+}
+
 #endif
