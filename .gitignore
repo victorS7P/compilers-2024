@@ -1,12 +1,8 @@
-# Replit
-./.ccls-cache
-./.replit
-./replit.nix
-
 # Build
-./build
-./debug
-./out
+build/*
+debug/*
+out/*
+!.keep
 
 # Test
 *_test
