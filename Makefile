@@ -59,4 +59,8 @@ test:
 	@printf "lexer TESTS\n\n" && ./lexer_test
 	@printf "\n" && echo $(TEST_DONE_MESSAGE) && read && clear
 
+	@$(CC) $(CFLAGS) -o ./parser_test ./tests/parser.test.c
+	@printf "parser TESTS\n\n" && ./parser_test
+	@printf "\n" && echo $(TEST_DONE_MESSAGE) && read && clear
+
 	@rm -rf ./*_test

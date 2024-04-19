@@ -1,0 +1,19 @@
+### GRAMÁTICA
+
+```
+<EXPRESSION> ::=
+  LITERAL_VALUE FILE_END
+  | LITERAL_VALUE OPERATOR EXPRESSION
+
+<LITERAL_VALUE> ::=
+  ℕ
+
+<FILE_END> ::=
+  EOF
+
+<OPERATOR> ::=
+  +
+  -
+  *
+  /
+```

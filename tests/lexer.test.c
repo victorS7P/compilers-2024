@@ -91,7 +91,10 @@ void getTokensWithSameSymbolTest() {
 void fetchTokensFromBufferTest() {
   printf("#fetchTokensFromBuffer\n");
 
-  TLexerToken* tokens = fetchTokensFromBuffer("(1+2)");
+  TLexerToken* tokens = fetchTokensFromBuffer("");
+  assert(tokens[0].symbol == FILE_END, "Should properly parse an empty buffer symbol");
+
+  tokens = fetchTokensFromBuffer("(1+2)");
   assert(
     strcmp(tokens[0].value, "(") == 0 &&
     strcmp(tokens[1].value, "1") == 0 &&

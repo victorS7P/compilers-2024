@@ -1,5 +1,5 @@
-#ifndef LEXER_H
-#define LEXER_H
+#ifndef LEXER
+#define LEXER
 
 #include "./lexer.h"
 #include "../../utils/utils.c"
