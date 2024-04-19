@@ -1,39 +1,42 @@
-NeanderPath = 02_23_Neander
-AssemblerPath = 03_09_Assembler
-LexerPath = 03_15_Lexer
+CC = clang
+CFLAGS = -Wno-everything -pthread -lm
+PROGRAM = ./build/program
 
-Build = && make build -s
-Run 	= && make run		-s
-Clean = && make clean -s
-
-FinishMessage = "Output file saved at program's folder.\nPress any key to continue"
-
-build:
-	@echo "Building Neander Simulator" \
-		&& cd $(NeanderPath) $(Build)
-		
-
-	@echo "Building Neander Assembler" \
-		&& cd $(AssemblerPath) $(Build)
-
-	@echo "Building Language Lexer" \
-		&& cd $(LexerPath) $(Build)
+MODULE_TO_TEST = utils
+RUN_TESTS = @ \
+	$(CC) $(CFLAGS) -o ./$(MODULE_TO_TEST)_test ./tests/$(MODULE_TO_TEST).test.c && \
+	echo "$(MODULE_TO_TEST) TESTS\n\n" && ./$(MODULE_TO_TEST)_test && \
+	echo "\n" && echo "Tests done! Press any key to continue ..." && read && clear
 
 run:
-	@echo "Running Language Lexer" \
-		&& cd $(LexerPath) $(Run) \
-		&& echo $(FinishMessage) && read
+	@clear
+	$(CC) $(CFLAGS) -o $(PROGRAM) ./src/main.c
+	@echo "Program built! Press any key to run ..." && read && clear
 
-	@echo "Running Neander Assembler" \
-		&& cd $(AssemblerPath) $(Run) \
-		&& echo $(FinishMessage) && read
-
-	@echo "Running Neander Simulator" \
-		&& cd $(NeanderPath) $(Run) \
-		&& echo $(FinishMessage) && read
+	@$(PROGRAM)
 
 clean:
-	@cd $(NeanderPath) $(Clean)
-	@cd $(AssemblerPath) $(Clean)
-	@cd $(LexerPath) $(Clean)
+	@rm -rf $(PROGRAM)
+	@rm -rf ./debug
+	@rm -rf ./out
 	@echo "All Clean!"
+
+test:
+	clear
+
+	$(eval MODULE_TO_TEST = utils)
+	$(RUN_TESTS)
+
+	$(eval MODULE_TO_TEST = vm)
+	$(RUN_TESTS)
+	
+	$(eval MODULE_TO_TEST = assembler)
+	$(RUN_TESTS)
+
+	$(eval MODULE_TO_TEST = lexer)
+	$(RUN_TESTS)
+
+	$(eval MODULE_TO_TEST = parser)
+	$(RUN_TESTS)
+
+	@rm -rf ./*_test
